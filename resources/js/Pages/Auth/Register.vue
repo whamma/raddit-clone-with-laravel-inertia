@@ -54,7 +54,6 @@ const submit = () => {
                     type="text"
                     class="mt-1 block w-full"
                     v-model="form.username"
-                    autofocus
                     autocomplete="name"
                 />
                 <BreezeErrorInput :message="errors.username" />
