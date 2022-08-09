@@ -7,6 +7,7 @@ use App\Models\Community;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CommunityStoreRequest;
+use App\Http\Requests\CommunityUpdateRequest;
 
 class CommunityController extends Controller
 {
@@ -62,7 +63,8 @@ class CommunityController extends Controller
      */
     public function edit($id)
     {
-        //
+        $community = Community::findOrFail($id);
+        return Inertia::render('Communities/Edit', compact('community'));
     }
 
     /**
@@ -72,9 +74,11 @@ class CommunityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CommunityUpdateRequest $request, $id)
     {
-        //
+        $community = Community::findOrFail($id);
+        $community->update($request->validated());
+        return to_route('communities.index');
     }
 
     /**

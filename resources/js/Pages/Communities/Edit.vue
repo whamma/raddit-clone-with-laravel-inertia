@@ -8,27 +8,29 @@ import BreezeLabel from "@/Components/Label.vue";
 import BreezeValidationErrors from "@/Components/ValidationErrors.vue";
 import { Head, Link, useForm } from "@inertiajs/inertia-vue3";
 
-defineProps({
+const props = defineProps({
     errors: Object,
+    community: Object,
 });
 
 const form = useForm({
-    name: "",
-    description: "",
+    name: props.community.name,
+    slug: props.community.slug,
+    description: props.community.description,
 });
 
 const submit = () => {
-    form.post(route("communities.store"));
+    form.put(route("communities.update", props.community.id));
 };
 </script>
 
 <template>
-    <Head title="Create" />
+    <Head title="Edit" />
 
     <BreezeAuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Create Community
+                Edit Community
             </h2>
         </template>
 
@@ -74,7 +76,7 @@ const submit = () => {
                                     :class="{ 'opacity-25': form.processing }"
                                     :disabled="form.processing"
                                 >
-                                    Store
+                                    Update
                                 </BreezeButton>
                             </div>
                         </form>
