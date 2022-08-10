@@ -41,7 +41,7 @@ class CommunityController extends Controller
     public function store(CommunityStoreRequest $request)
     {
         $community = auth()->user()->communities()->create($request->validated());
-        return to_route('communities.index');
+        return to_route('communities.index')->with('message', 'Community created successfully!');
     }
 
     /**
@@ -78,7 +78,7 @@ class CommunityController extends Controller
     {
         $community = Community::findOrFail($id);
         $community->update($request->validated());
-        return to_route('communities.index');
+        return to_route('communities.index')->with('message', 'Community updated successfully!');
     }
 
     /**
@@ -89,6 +89,8 @@ class CommunityController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $community = Community::findOrFail($id);
+        $community->delete();
+        return back()->with('message', 'Community deleted successfully!');
     }
 }

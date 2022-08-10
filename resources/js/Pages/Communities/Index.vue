@@ -79,7 +79,7 @@ defineProps({
                                                 {{ community.slug }}
                                             </td>
                                             <td
-                                                class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6"
+                                                class="relative whitespace-nowrap space-x-4 py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6"
                                             >
                                                 <Link
                                                     :href="
@@ -90,6 +90,24 @@ defineProps({
                                                     "
                                                     class="text-indigo-600 hover:text-indigo-900"
                                                     >Edit<span class="sr-only"
+                                                        >,
+                                                        {{
+                                                            community.name
+                                                        }}</span
+                                                    ></Link
+                                                >
+                                                <Link
+                                                    :href="
+                                                        route(
+                                                            'communities.destroy',
+                                                            community.id
+                                                        )
+                                                    "
+                                                    method="delete"
+                                                    as="button"
+                                                    type="button"
+                                                    class="text-red-600 hover:text-red-900"
+                                                    >Delete<span class="sr-only"
                                                         >,
                                                         {{
                                                             community.name
