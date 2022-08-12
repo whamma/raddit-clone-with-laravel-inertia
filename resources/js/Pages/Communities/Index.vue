@@ -1,9 +1,10 @@
 <script setup>
 import BreezeAuthenticatedLayout from "@/Layouts/Authenticated.vue";
 import { Head, Link } from "@inertiajs/inertia-vue3";
+import Pagination from "../../Components/Pagination.vue";
 
 defineProps({
-    communities: Array,
+    communities: Object,
 });
 </script>
 
@@ -65,7 +66,7 @@ defineProps({
                                 >
                                     <template v-if="communities">
                                         <tr
-                                            v-for="community in communities"
+                                            v-for="community in communities.data"
                                             :key="community.id"
                                         >
                                             <td
@@ -119,6 +120,9 @@ defineProps({
                                     </template>
                                 </tbody>
                             </table>
+                            <div class="m-2 p-2">
+                                <Pagination :links="communities.links" />
+                            </div>
                         </div>
                     </div>
                 </div>
