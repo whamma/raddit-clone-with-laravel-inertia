@@ -41,6 +41,14 @@ const show = ref(true);
                                 >
                                     Dashboard
                                 </BreezeNavLink>
+                                <BreezeNavLink
+                                    :href="route('communities.index')"
+                                    :active="
+                                        route().current('communities.index')
+                                    "
+                                >
+                                    Community
+                                </BreezeNavLink>
                             </div>
                         </div>
 
@@ -142,6 +150,12 @@ const show = ref(true);
                             :active="route().current('dashboard')"
                         >
                             Dashboard
+                        </BreezeResponsiveNavLink>
+                        <BreezeResponsiveNavLink
+                            :href="route('communities.index')"
+                            :active="route().current('communities.index')"
+                        >
+                            Community
                         </BreezeResponsiveNavLink>
                     </div>
 
