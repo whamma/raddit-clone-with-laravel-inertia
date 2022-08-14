@@ -12,6 +12,7 @@ class CommunityController extends Controller
     public function show($slug)
     {
         $community = Community::findBySlugOrFail($slug);
-        return Inertia::render('Frontend/Communities/Show', compact('community'));
+        $posts = $community->posts()->paginate();
+        return Inertia::render('Frontend/Communities/Show', compact('community', 'posts'));
     }
 }

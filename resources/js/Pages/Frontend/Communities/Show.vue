@@ -4,6 +4,7 @@ import { Head, Link } from "@inertiajs/inertia-vue3";
 
 defineProps({
     community: Object,
+    posts: Object,
 });
 </script>
 
@@ -40,6 +41,11 @@ defineProps({
                 </div>
                 <div>
                     <h1>Community is {{ community.name }}</h1>
+                    <ul>
+                        <li v-for="post in posts.data" :key="post.id">
+                            {{ post.title }}
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
