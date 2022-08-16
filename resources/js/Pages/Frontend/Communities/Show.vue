@@ -1,6 +1,8 @@
 <script setup>
 import FrontendLayout from "@/Layouts/Frontend.vue";
 import { Head, Link } from "@inertiajs/inertia-vue3";
+import PostCard from "@/Components/PostCard.vue";
+import Pagination from "@/Components/Pagination.vue";
 
 defineProps({
     community: Object,
@@ -13,13 +15,10 @@ defineProps({
 
     <FrontendLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Show Community
-            </h2>
-        </template>
-
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center">
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                    r/{{ community.name }}
+                </h2>
                 <div
                     v-if="$page.props.auth.auth_check"
                     class="flex items-center justify-end"
@@ -39,15 +38,30 @@ defineProps({
                         </Link>
                     </div>
                 </div>
-                <div>
-                    <h1>Community is {{ community.name }}</h1>
-                    <ul>
-                        <li v-for="post in posts.data" :key="post.id">
-                            {{ post.title }}
-                        </li>
-                    </ul>
+            </div>
+        </template>
+
+        <section
+            class="py-4 max-w-7xl mx-auto sm:px-6 lg:px-8 flex items-start space-x-4"
+        >
+            <div class="w-8/12">
+                <div class="flex flex-col space-y-4">
+                    <PostCard
+                        v-for="post in posts.data"
+                        :key="post.id"
+                        :post="post"
+                        :community="community.slug"
+                    />
+                </div>
+                <div class="m-2 p-2">
+                    <Pagination :links="posts.meta.links" />
                 </div>
             </div>
-        </div>
+            <div class="w-4/12">
+                <div class="bg-slate-800 text-white px-4 py-2">
+                    Latest Communities
+                </div>
+            </div>
+        </section>
     </FrontendLayout>
 </template>
