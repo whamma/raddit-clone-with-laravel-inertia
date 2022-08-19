@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\PostStoreRequest;
+use App\Models\Post;
+use Inertia\Inertia;
 use App\Models\Community;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\PostStoreRequest;
+use App\Http\Resources\PostShowResource;
 use Illuminate\Support\Facades\Redirect;
-use Inertia\Inertia;
 
 class CommunityPostController extends Controller
 {
@@ -68,9 +70,12 @@ class CommunityPostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($community_slug, $slug)
     {
-        //
+        $community = Community::findBySlugOrFail($community_slug);
+        $post = Post::findBySlugOrFail($slug);
+
+        return Inertia::render('Communities/Posts/Edit', compact('community', 'post'));
     }
 
     /**
@@ -80,9 +85,13 @@ class CommunityPostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostStoreRequest $request, $community_slug, $slug)
     {
-        //
+        $community = Community::findBySlugOrFail($community_slug);
+        $post = Post::findBySlugOrFail($slug);
+        $post->update($request->validated());
+
+        return Redirect::route('frontend.communities.posts.show', [$community->slug, $post->slug])->with('flash', 'Post update successfully.');
     }
 
     /**
@@ -91,8 +100,12 @@ class CommunityPostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($community_slug, $slug)
     {
-        //
+        $community = Community::findBySlugOrFail($community_slug);
+        $post = Post::findBySlugOrFail($slug);
+        $post->delete();
+
+        return Redirect::route('frontend.communities.show', $community->slug)->with('flash', 'Post delete successfully.');
     }
 }

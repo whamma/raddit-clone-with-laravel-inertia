@@ -41,10 +41,15 @@ defineProps({
                                 post.data.username
                             }}</span>
                         </div>
-                        <div class="flex items-center space-x-2">
+                        <div
+                            v-if="
+                                $page.props.auth.auth_check && post.data.owner
+                            "
+                            class="flex items-center space-x-2"
+                        >
                             <Link
                                 :href="
-                                    route('frontend.communities.posts.edit', [
+                                    route('communities.posts.edit', [
                                         community.slug,
                                         post.data.slug,
                                     ])
@@ -56,10 +61,10 @@ defineProps({
                                 type="button"
                                 method="delete"
                                 :href="
-                                    route(
-                                        'frontend.communities.posts.destroy',
-                                        [community.slug, post.data.slug]
-                                    )
+                                    route('communities.posts.destroy', [
+                                        community.slug,
+                                        post.data.slug,
+                                    ])
                                 "
                                 class="text-red-600 hover:text-red-900"
                                 >Delete</Link

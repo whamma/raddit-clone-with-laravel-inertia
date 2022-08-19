@@ -32,10 +32,6 @@ Route::get('/r/{slug}', [FrontendCommunityController::class, 'show'])
     ->name('frontend.communities.show');
 Route::get('/r/{community_slug}/posts/{post:slug}', [PostController::class, 'show'])
     ->name('frontend.communities.posts.show');
-Route::get('/r/{community_slug}/posts/{post:slug}/edit', [PostController::class, 'edit'])
-    ->name('frontend.communities.posts.edit');
-Route::delete('/r/{community_slug}/posts/{post:slug}', [PostController::class, 'destroy'])
-    ->name('frontend.communities.posts.destroy');
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/dashboard', function () {
@@ -44,6 +40,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     Route::resource('/communities', CommunityController::class);
     Route::resource('/communities.posts', CommunityPostController::class);
+    // Route::get('/r/{community_slug}/posts/{post:slug}/edit', [CommunityPostController::class, 'edit'])
+    //     ->name('communities.posts.edit');
+    // Route::delete('/r/{community_slug}/posts/{post:slug}', [CommunityPostController::class, 'destroy'])
+    //     ->name('communities.posts.destroy');
 });
 
 require __DIR__ . '/auth.php';

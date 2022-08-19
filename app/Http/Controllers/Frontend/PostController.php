@@ -18,21 +18,4 @@ class PostController extends Controller
 
         return Inertia::render('Frontend/Posts/Show', compact('community', 'post'));
     }
-
-    public function edit($community_slug, $slug)
-    {
-        $community = Community::findBySlugOrFail($community_slug);
-        $post = new PostShowResource(Post::findBySlugOrFail($slug));
-
-        return Inertia::render('Frontend/Posts/Edit', compact('community', 'post'));
-    }
-
-    public function destroy($community_slug, $slug)
-    {
-        $community = Community::findBySlugOrFail($community_slug);
-        $post = Post::findBySlugOrFail($slug);
-        $post->delete();
-
-        return to_route('frontend.communities.show', $community->slug)->with('flash', 'Post delete successfully.');
-    }
 }
