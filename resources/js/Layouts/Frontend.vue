@@ -44,7 +44,10 @@ const show = ref(true);
 
                     <div class="hidden sm:flex sm:items-center sm:ml-6">
                         <!-- Settings Dropdown -->
-                        <div class="ml-3 relative">
+                        <div
+                            v-if="$page.props.auth.auth_check"
+                            class="ml-3 relative"
+                        >
                             <BreezeDropdown align="right" width="48">
                                 <template #trigger>
                                     <span class="inline-flex rounded-md">
@@ -86,6 +89,21 @@ const show = ref(true);
                                 </template>
                             </BreezeDropdown>
                         </div>
+                        <template v-else>
+                            <Link
+                                :href="route('login')"
+                                class="text-sm text-gray-700 underline"
+                            >
+                                Log in
+                            </Link>
+
+                            <Link
+                                :href="route('register')"
+                                class="ml-4 text-sm text-gray-700 underline"
+                            >
+                                Register
+                            </Link>
+                        </template>
                     </div>
 
                     <!-- Hamburger -->
@@ -149,7 +167,10 @@ const show = ref(true);
                 </div>
 
                 <!-- Responsive Settings Options -->
-                <div class="pt-4 pb-1 border-t border-gray-200">
+                <div
+                    v-if="$page.props.auth.check_auth"
+                    class="pt-4 pb-1 border-t border-gray-200"
+                >
                     <div class="px-4">
                         <div class="font-medium text-base text-gray-800">
                             {{ $page.props.auth.user.name }}

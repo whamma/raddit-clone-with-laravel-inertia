@@ -75,10 +75,11 @@ defineProps({
                                                 <Link
                                                     :href="
                                                         route(
-                                                            'communities.show',
-                                                            community.id
+                                                            'frontend.communities.show',
+                                                            community.slug
                                                         )
                                                     "
+                                                    class="text-blue-500 hover:text-blue-700"
                                                     >{{ community.name }}</Link
                                                 >
                                             </td>
