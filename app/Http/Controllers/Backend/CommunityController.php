@@ -63,12 +63,12 @@ class CommunityController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        $community = Community::findOrFail($id);
+        $community = Community::findBySlugOrFail($slug);
         return Inertia::render('Communities/Edit', compact('community'));
     }
 
