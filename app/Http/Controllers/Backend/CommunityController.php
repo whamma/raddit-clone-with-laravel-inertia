@@ -69,6 +69,7 @@ class CommunityController extends Controller
     public function edit($slug)
     {
         $community = Community::findBySlugOrFail($slug);
+        $this->authorize('update', $community);
         return Inertia::render('Communities/Edit', compact('community'));
     }
 
@@ -82,6 +83,7 @@ class CommunityController extends Controller
     public function update(CommunityUpdateRequest $request, $id)
     {
         $community = Community::findOrFail($id);
+        $this->authorize('update', $community);
         $community->update($request->validated());
         return to_route('communities.index')->with('message', 'Community updated successfully!');
     }
@@ -95,6 +97,7 @@ class CommunityController extends Controller
     public function destroy($id)
     {
         $community = Community::findOrFail($id);
+        $this->authorize('destroy', $community);
         $community->delete();
         return back()->with('message', 'Community deleted successfully!');
     }

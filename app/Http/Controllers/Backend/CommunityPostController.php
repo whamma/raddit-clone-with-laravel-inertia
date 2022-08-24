@@ -74,7 +74,7 @@ class CommunityPostController extends Controller
     {
         $community = Community::findBySlugOrFail($community_slug);
         $post = Post::findBySlugOrFail($slug);
-
+        $this->authorize('update', $post);
         return Inertia::render('Communities/Posts/Edit', compact('community', 'post'));
     }
 
@@ -89,6 +89,7 @@ class CommunityPostController extends Controller
     {
         $community = Community::findBySlugOrFail($community_slug);
         $post = Post::findBySlugOrFail($slug);
+        $this->authorize('update', $post);
         $post->update($request->validated());
 
         return Redirect::route('frontend.communities.posts.show', [$community->slug, $post->slug])->with('flash', 'Post update successfully.');
@@ -104,6 +105,7 @@ class CommunityPostController extends Controller
     {
         $community = Community::findBySlugOrFail($community_slug);
         $post = Post::findBySlugOrFail($slug);
+        $this->authorize('destroy', $post);
         $post->delete();
 
         return Redirect::route('frontend.communities.show', $community->slug)->with('flash', 'Post delete successfully.');
