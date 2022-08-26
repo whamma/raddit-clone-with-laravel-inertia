@@ -14,7 +14,7 @@ class PostController extends Controller
     public function show($community_slug, $slug)
     {
         $community = Community::findBySlugOrFail($community_slug);
-        $post = new PostShowResource(Post::findBySlugOrFail($slug));
+        $post = new PostShowResource(Post::with('comments')->where('slug', $slug)->first());
 
         return Inertia::render('Frontend/Posts/Show', compact('community', 'post'));
     }
