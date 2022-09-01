@@ -7,6 +7,7 @@ use App\Http\Controllers\Frontend\PostController;
 use App\Http\Controllers\Backend\CommunityController;
 use App\Http\Controllers\Frontend\PostCommentController;
 use App\Http\Controllers\Backend\CommunityPostController;
+use App\Http\Controllers\Backend\PostVoteController;
 use App\Http\Controllers\Frontend\CommunityController as FrontendCommunityController;
 
 /*
@@ -43,6 +44,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     //     ->name('communities.posts.edit');
     // Route::delete('/r/{community_slug}/posts/{post:slug}', [CommunityPostController::class, 'destroy'])
     //     ->name('communities.posts.destroy');
+
+    Route::post('/post/{post:slug}/up-vote', [PostVoteController::class, 'upVote'])->name('post.up-vote');
+    Route::post('/post/{post:slug}/down-vote', [PostVoteController::class, 'downVote'])->name('post.down-vote');
 });
 
 require __DIR__ . '/auth.php';
