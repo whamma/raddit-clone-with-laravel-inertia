@@ -3,9 +3,11 @@ import FrontendLayout from "@/Layouts/Frontend.vue";
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import PostCard from "@/Components/PostCard.vue";
 import Pagination from "@/Components/Pagination.vue";
+import CommunityList from "@/Components/CommunityList.vue";
 
 defineProps({
     community: Object,
+    communities: Object,
     posts: Object,
 });
 </script>
@@ -58,9 +60,17 @@ defineProps({
                 </div>
             </div>
             <div class="w-4/12">
-                <div class="bg-slate-800 text-white px-4 py-2">
-                    Latest Communities
+                <div class="w-full bg-white rounded-lg">
+                    <h2
+                        class="w-full px-6 py-4 font-semibold bg-indigo-700 text-white rounded-t-lg"
+                    >
+                        About {{ community.name }}
+                    </h2>
+                    <div class="px-4 py-2">{{ community.description }}</div>
                 </div>
+                <CommunityList class="mt-4" :communities="communities.data">
+                    <template #title>Latest Communities</template>
+                </CommunityList>
             </div>
         </section>
     </FrontendLayout>

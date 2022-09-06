@@ -28,8 +28,9 @@ defineProps({
                 </div>
             </div>
             <div class="w-4/12 px-4 py-2">
-                <div>Top Communities</div>
-                <CommunityList :communities="communities.data" />
+                <CommunityList :communities="communities.data">
+                    <template #title>Top Communities</template>
+                </CommunityList>
             </div>
         </section>
     </FrontendLayout>

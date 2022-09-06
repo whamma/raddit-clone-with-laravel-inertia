@@ -4,10 +4,14 @@ import { Head, Link, useForm } from "@inertiajs/inertia-vue3";
 import PostCard from "@/Components/PostCard.vue";
 import Pagination from "@/Components/Pagination.vue";
 import PostVote from "../../../Components/PostVote.vue";
+import PostList from "@/Components/PostList.vue";
 
 const props = defineProps({
+    posts: Object,
     community: Object,
     post: Object,
+    canUpdate: Boolean,
+    canDelete: Boolean,
 });
 
 const form = useForm({
@@ -61,15 +65,17 @@ const addComment = () => {
                                 <span class="text-gray-800">{{
                                     post.data.username
                                 }}</span>
+                                <span class="text-xs text-gray-600 mx-1"
+                                    >•</span
+                                >
+                                {{ post.data.created_at }}
                             </div>
                             <div
-                                v-if="
-                                    $page.props.auth.auth_check &&
-                                    post.data.owner
-                                "
+                                v-if="$page.props.auth.auth_check"
                                 class="flex items-center space-x-2"
                             >
                                 <Link
+                                    v-if="canUpdate"
                                     :href="
                                         route('communities.posts.edit', [
                                             community.slug,
@@ -79,6 +85,7 @@ const addComment = () => {
                                     >Edit</Link
                                 >
                                 <Link
+                                    v-if="canDelete"
                                     as="button"
                                     type="button"
                                     method="delete"
@@ -160,9 +167,9 @@ const addComment = () => {
                 </div>
             </div>
             <div class="w-4/12">
-                <div class="bg-slate-800 text-white px-4 py-2">
-                    Latest Communities
-                </div>
+                <PostList :posts="posts.data" :community="community">
+                    <template #title>Popular Posts</template>
+                </PostList>
             </div>
         </section>
     </FrontendLayout>

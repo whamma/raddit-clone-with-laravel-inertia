@@ -92,7 +92,7 @@ class CommunityPostController extends Controller
         $this->authorize('update', $post);
         $post->update($request->validated());
 
-        return Redirect::route('frontend.communities.posts.show', [$community->slug, $post->slug])->with('flash', 'Post update successfully.');
+        return Redirect::route('frontend.communities.posts.show', [$community->slug, $post->slug])->with('message', 'Post update successfully.');
     }
 
     /**
@@ -105,9 +105,9 @@ class CommunityPostController extends Controller
     {
         $community = Community::findBySlugOrFail($community_slug);
         $post = Post::findBySlugOrFail($slug);
-        $this->authorize('destroy', $post);
+        $this->authorize('delete', $post);
         $post->delete();
 
-        return Redirect::route('frontend.communities.show', $community->slug)->with('flash', 'Post delete successfully.');
+        return Redirect::route('frontend.communities.show', $community->slug)->with('message', 'Post delete successfully.');
     }
 }

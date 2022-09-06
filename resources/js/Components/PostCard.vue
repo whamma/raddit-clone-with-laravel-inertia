@@ -22,12 +22,21 @@ defineProps({
                     class="font-semibold mr-3 hover:text-indigo-700"
                     >r/{{ community }}</Link
                 >
-                <div class="flex">
+                <div class="flex items-center">
                     Posted by
-                    <span class="font-semibold ml-1">{{ post.username }}</span>
+                    <span class="font-semibold">{{ post.username }}</span>
+                    <span class="text-xs text-gray-600 mx-1">•</span>
+                    {{ post.created_at }}
                 </div>
             </div>
-            <Link href="">
+            <Link
+                :href="
+                    route('frontend.communities.posts.show', [
+                        community,
+                        post.slug,
+                    ])
+                "
+            >
                 <h5
                     class="mb-2 text-2xl font-bold tracking-tight text-gray-900 hover:text-indigo-700"
                 >
